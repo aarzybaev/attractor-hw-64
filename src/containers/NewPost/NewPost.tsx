@@ -13,6 +13,22 @@ const NewPost = () => {
 
   const navigate = useNavigate();
   let content;
+
+  const toCreatePost = async () => {
+    try {
+      await axiosAPI.post<ApiPost | null>('/posts.json', post);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const toEditePost = async (id: string) => {
+    try {
+      await axiosAPI.put<ApiPost | null>('/posts/' + id + '.json', post);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const changePost = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setPost(prevState => ({
       ...prevState,
@@ -111,21 +127,7 @@ const NewPost = () => {
       </form>
     );
   }
-  const toCreatePost = async () => {
-    try {
-      await axiosAPI.post<ApiPost | null>('/posts.json', post);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
-  const toEditePost = async (id: string) => {
-    try {
-      await axiosAPI.put<ApiPost | null>('/posts/' + id + '.json', post);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return content;
 };
